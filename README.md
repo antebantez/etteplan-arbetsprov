@@ -5,9 +5,7 @@ and then write the value in a new file for example a .txt.
 
 ## Prerequisites
 
-```text
-Node.js is installed. You can download it from [here](https://nodejs.org/)
-```
+Node.js is installed. You can download it from here: [Node.js](https://nodejs.org/)
 
 ## Getting started
 
