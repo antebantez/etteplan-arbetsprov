@@ -1,7 +1,10 @@
 const fs = require("fs")
 const { DOMParser } = require("xmldom")
-const xmlFilePath = "sma_gentext.xml"
 
+const xmlFilePath = "sma_gentext.xml"
+const idToFind = "42007"
+
+// Fucntion to read and parse XML file
 const readXmlFile = () => {
     try {
         // Check if there is a path to read from
@@ -24,8 +27,9 @@ const readXmlFile = () => {
     }
 }
 
+// Function to extract data from the XML document
 const extractData = (xmlDoc) => {
-    // Validate the sent in parameter
+    // Validate the sent-in parameter
     if (!xmlDoc || !xmlDoc.getElementsByTagName) {
         console.log("Invalid XML document provided")
         return
@@ -37,11 +41,11 @@ const extractData = (xmlDoc) => {
             const transUnitNode = transUnitNodes.item(i)
             const id = transUnitNode.getAttribute("id")
 
-            if (id === "42007") {
+            if (id === idToFind) {
                 const targetNode =
                     transUnitNode.getElementsByTagName("target")[0]
-                // check the length of the value and pass it to the writeToFile-function
-                if (targetNode.textContent.length) {
+                // Check if the target content is available and pass it to the writeToFile-function
+                if (targetNode.textContent) {
                     writeToFile(targetNode.textContent)
                     return
                 }
@@ -56,7 +60,7 @@ const extractData = (xmlDoc) => {
 //Writing parameter value to an .txt File
 const writeToFile = (content) => {
     try {
-        if (content.length) {
+        if (content) {
             fs.writeFileSync("output.txt", content)
         } else {
             console.log("No data to write")
@@ -66,4 +70,5 @@ const writeToFile = (content) => {
     }
 }
 
+// Entry point
 readXmlFile()
